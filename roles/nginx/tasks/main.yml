@@ -1,0 +1,36 @@
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+- name: Ensure nginx is running
+  service:
+    name: nginx
+    enabled: yes
+    state: started
+- name: Create jenkins config
+  template:
+    src: jenkins.conf
+    dest: /etc/nginx/sites-available/jenkins.conf
+- name: Create logs repertory
+  file:
+    path: "/var/log/nginx/jenkins"
+    state: directory
+    mode: '0755'
+- name: Create todoapp config
+  template:
+    src: todoapp.conf
+    dest: /etc/nginx/sites-available/todoapp.conf
+- name: Activate jenkins config
+  file:
+    src: /etc/nginx/sites-available/jenkins.conf
+    dest: /etc/nginx/sites-enabled/jenkins.conf
+    state: link
+- name: Activate todoapp config
+  file:
+    src: /etc/nginx/sites-available/todoapp.conf
+    dest: /etc/nginx/sites-enabled/todoapp.conf
+    state: link
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted

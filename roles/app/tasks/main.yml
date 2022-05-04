@@ -1,0 +1,7 @@
+- name: FRONT npm install
+  npm:
+    path: /home/repos/devops-frontend
+# - name: FRONT build
+#   command: "npm run start"
+#   args:
+#     chdir: /home/repos/devops-frontend

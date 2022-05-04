@@ -3,3 +3,6 @@
   roles:
     - role: setup
     - role: jenkins
+    - role: nginx
+    - role: database
+    - role: app

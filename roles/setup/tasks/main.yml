@@ -2,7 +2,7 @@
   apt:
     upgrade: yes
     update_cache: yes
-- name: Ensure dependencies are installed.
+- name: Ensure jenkins dependencies are installed.
   apt:
     name:
       - curl
@@ -10,3 +10,27 @@
       - gnupg
       - openjdk-11-jre-headless
     state: present
+- name: Install node
+  apt:
+    name: nodejs
+    state: present
+- name: Install npm
+  apt:
+    name: npm
+    state: present
+- name: Install maven
+  apt:
+    name: maven
+    state: present
+- name: Clone front application
+  git:
+    repo: https://github.com/Vds123/devops-frontend
+    dest: /home/repos/
+    clone: yes
+    update: yes
+- name: Clone back application
+  git:
+    repo: https://github.com/Vds123/devops-backend
+    dest: /home/repos/
+    clone: yes
+    update: yes
