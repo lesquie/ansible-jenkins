@@ -9,28 +9,28 @@
       - apt-transport-https
       - gnupg
       - openjdk-11-jre-headless
+      - python3
+      - python3-jenkins
     state: present
-- name: Install node
-  apt:
-    name: nodejs
-    state: present
-- name: Install npm
-  apt:
-    name: npm
-    state: present
+- name: Set the python interpreter to the python3
+  set_fact:
+    ansible_python_interpreter: '/usr/bin/python3'
+- import_tasks: setup-node.yml
 - name: Install maven
   apt:
     name: maven
-    state: present
+    state: latest
 - name: Clone front application
   git:
     repo: https://github.com/Vds123/devops-frontend
-    dest: /home/repos/
+    dest: /home/repos/devops-frontend
     clone: yes
     update: yes
+    force: yes
 - name: Clone back application
   git:
     repo: https://github.com/Vds123/devops-backend
-    dest: /home/repos/
+    dest: /home/repos/devops-backend
     clone: yes
     update: yes
+    force: yes

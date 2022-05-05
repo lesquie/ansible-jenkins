@@ -6,3 +6,5 @@
     - role: nginx
     - role: database
     - role: app
+    - role: jenkins-jobs
+

@@ -1,7 +1,15 @@
 - name: FRONT npm install
   npm:
     path: /home/repos/devops-frontend
-# - name: FRONT build
-#   command: "npm run start"
-#   args:
-#     chdir: /home/repos/devops-frontend
+- name: FRONT build
+  command: "npm run build"
+  args:
+    chdir: /home/repos/devops-frontend
+- name: FRONT copy build files into nginx
+  command: cp -r /home/repos/devops-frontend/build/. /var/www/html
+- name: BACK build
+  command: "mvn clean install"
+  args:
+    chdir: /home/repos/devops-backend
+- name: BACK launch jar
+  shell: nohup java -jar /home/repos/devops-backend/target/BackEnd-0.0.1-SNAPSHOT.jar &
