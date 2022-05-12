@@ -16,7 +16,11 @@
     path: "/var/log/nginx/jenkins"
     state: directory
     mode: '0755'
-- name: Activate config
+- name: Remove default config
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+- name: Activate custom config
   file:
     src: /etc/nginx/sites-available/jenkins.conf
     dest: /etc/nginx/sites-enabled/jenkins.conf
